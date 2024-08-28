@@ -1,0 +1,277 @@
+<!-- Modal Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex align-items-center">
+        <div class="input-group w-75 mx-auto d-flex">
+          <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Search End -->
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+  <h1 class="text-center text-white display-6">Admin</h1>
+  <ol class="breadcrumb justify-content-center mb-0">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+    <li class="breadcrumb-item active text-white">Admin</li>
+  </ol>
+</div>
+<!-- Single Page Header End -->
+
+<!-- Cart Start -->
+<div class="container-fluid py-2">
+  <div class="container py-5">
+
+    <div class="row">
+      <div class="col-lg-3 table-responsive mb-5">
+        <!-- kks -->
+        <div class="col-auto col-md-12 col-xl-12 px-sm-12 px-0">
+          <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+              <li class="nav-item">
+                <a href="#" class="nav-link align-middle px-0">
+                  <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/admin/products-list']" routerLinkActive="router-link-active"
+                  class="nav-link px-0 align-middle">
+                  <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản lý sản
+                    phẩm</span></a>
+              </li>
+              <li>
+                <a [routerLink]="['/admin/categories-list']" routerLinkActive="router-link-active"
+                  class="nav-link px-0 align-middle">
+                  <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản lý danh
+                    mục</span></a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0 align-middle">
+                  <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản lý người
+                    dùng</span></a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0 align-middle">
+                  <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản lý đơn
+                    hàng</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- nút thêm sản phẩm modal -->
+        <button class="btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#addProductModal">
+          <span class="btn w-100 text-uppercase text-dark">Thêm sản phẩm</span>
+        </button>
+
+      </div>
+      <div class="col-lg-9 col-9 table-responsive">
+        <div class="container">
+          <div class="col-12 table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Sản phẩm</th>
+                  <th scope="col">Tên</th>
+                  <th scope="col">Giá</th>
+                  <th scope="col">DM</th>
+                  <th scope="col">Mô tả</th>
+                  <th scope="col">Bán chạy</th>
+                  <th scope="col">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="loadAdminPro">
+                <tr *ngFor="let pro of products">
+                  <th scope="row">
+                    <div class=" product-img d-flex align-items-center">
+                      <img src="/assets/img/{{pro.img}}" class="img-fluid me-5 rounded-circle"
+                        style="width: 80px; height: 80px;" alt="">
+                    </div>
+                  </th>
+                  <td>
+                    <p class="mb-0 mt-4 product-name">{{pro.name}}</p>
+                  </td>
+                  <td>
+                    <p class="mb-0 mt-4 product-price">{{pro.price | vndCurrency}}</p>
+                  </td>
+                  <td>
+                    <p class="mb-0 mt-4 product-category">{{pro.category_id}}</p>
+                  </td>
+                  <td>
+                    <p class="mb-0 mt-4 product-description" style="max-width: 100px; overflow: hidden;">
+                      {{pro.description}}</p>
+                  </td>
+                  <td>
+                    <p class="mb-0 mt-4">{{pro.bestSeller == 1 ? "Bán chạy" : "Thường"}}</p>
+                  </td>
+                  <td class="d-flex">
+                    <a class="btn btn-md mt-4" (click)="openEditModal(pro)" [routerLink]="['/products-list/'+pro.id]"
+                      routerLinkActive="router-link-active">
+                      <i class="fas fa-edit" style="color: #88c00c;"></i>
+                    </a>
+
+                    <a class="btn btn-md border mt-4" (click)="deletePro(pro.id)">
+                      <i class="fa fa-times text-danger"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Cart End -->
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProModal" aria-hidden="true">
+  <!-- Modal Content -->
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProModal">Thêm Sản Phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="addPro()">
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="mb-3">
+                <label for="productName" class="form-label">Tên Sản Phẩm</label>
+                <input type="text" class="form-control" id="productName" formControlName="name"
+                  aria-describedby="nameHelpId">
+                <small *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" id="nameHelpId"
+                  class="text-danger">
+                  Biết điền tên k ???
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="productDescription" class="form-label">Mô Tả</label>
+                <textarea class="form-control" id="productDescription" formControlName="description"
+                  aria-describedby="descriptionHelpId"></textarea>
+                <small *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                  id="descriptionHelpId" class="text-danger">
+                  Vui lòng điền trên 6 ký tự
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="productCategory" class="form-label">Danh mục</label>
+                <select class="form-control" id="productCategory" formControlName="category_id">
+                  <option *ngFor="let catName of categories" [value]="catName.id">{{catName.name}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="productPrice" class="form-label">Giá</label>
+                <input type="number" class="form-control" id="productPrice" formControlName="price"
+                  aria-describedby="priceHelpId">
+                <small *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" id="priceHelpId"
+                  class="text-danger">
+                  Vui lòng điền Giá là số lớn hơn 0 !
+                </small>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-edit mx-auto">
+                <button class="add-product-image" style="border: none; background-color: white;"
+                  (click)="openFileInput()" type="button">
+                  <img #previewImg src="http://localhost:3000/images/1.jpg" alt="" style="max-width: 358px;">
+                </button>
+              </div>
+              <div class="custom-file mt-3 mb-3">
+                <input #fileInput id="fileInput" type="file" style="display:none;" (change)="changeImg($event)" />
+                <input type="button" class="btn btn-primary btn-block mx-auto" value="THÊM ẢNH"
+                  (click)="openFileInput()" />
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary col-12">Thêm sản phẩm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Add Product Modal -->
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProModal" aria-hidden="true">
+  <!-- Modal Content -->
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProModal">Sửa Sản Phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProductForm" enctype="multipart/form-data" [formGroup]="productForm" (ngSubmit)="editPro()">
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="mb-3">
+                <label for="productName" class="form-label">Tên Sản Phẩm</label>
+                <input type="text" class="form-control" id="editProductName" name="productName" formControlName="name"
+                  [(ngModel)]="product.name" aria-describedby="nameHelpId">
+                <small *ngIf="!productForm.get('name')?.valid && productForm.get('name')?.touched" id="nameHelpId"
+                  class="text-danger">
+                  Biết điền tên k ???
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="productDescription" class="form-label">Mô Tả</label>
+                <textarea class="form-control" id="productDescription" formControlName="description"
+                  aria-describedby="descriptionHelpId"></textarea>
+                <small *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                  id="descriptionHelpId" class="text-danger">
+                  Vui lòng điền trên 6 ký tự
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="productCategory" class="form-label">Danh mục</label>
+                <select class="form-control" id="productCategory" formControlName="category_id">
+                  <option *ngFor="let catName of categories" [value]="catName.id">{{catName.name}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="productPrice" class="form-label">Giá</label>
+                <input type="number" class="form-control" id="productPrice" formControlName="price"
+                  aria-describedby="priceHelpId">
+                <small *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" id="priceHelpId"
+                  class="text-danger">
+                  Vui lòng điền Giá là số lớn hơn 0 !
+                </small>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-edit mx-auto">
+                <button class="add-product-image" style="border: none; background-color: white;"
+                  (click)="openFileInput()" type="button">
+                  <img #previewImg
+                    [src]="'http://localhost:3000/images/' + (productForm.get('img')?.value || 'avatar.jpg')" alt=""
+                    style="max-width: 358px;"> </button>
+              </div>
+              <div class="custom-file mt-3 mb-3">
+                <input #fileInput id="fileInput" type="file" style="display:none;" (change)="changeImg($event)" />
+                <input type="button" class="btn btn-primary btn-block mx-auto" value="THÊM ẢNH"
+                  (click)="openFileInput()" />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary col-12">Sửa
+            sản phẩm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Edit Product Modal -->

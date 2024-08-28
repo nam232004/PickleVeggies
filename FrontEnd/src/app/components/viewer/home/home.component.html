@@ -1,0 +1,275 @@
+<!-- Modal Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex align-items-center">
+        <div class="input-group w-75 mx-auto d-flex">
+          <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
+          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Search End -->
+
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5 hero-header">
+  <div class="container py-5">
+    <div class="row g-5 align-items-center">
+      <div class="col-md-12 col-lg-7">
+        <h4 class="mb-3 text-secondary">100% Từ thiên nhiên</h4>
+        <h1 class="mb-5 display-3 text-primary">Củ kiệu &<br />Dưa chua các loại</h1>
+        <div class="position-relative mx-auto">
+          <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="search"
+            placeholder="Tìm kiếm gì đó..." />
+          <button type="submit"
+            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
+            style="top: 0; right: 25%">
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-5">
+        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active rounded">
+              <img src="assets/img/hero-img-1.png" class="img-fluid w-100 h-100 bg-secondary rounded"
+                alt="First slide" />
+              <a href="#" class="btn px-4 py-2 text-white rounded">Củ kiệu</a>
+            </div>
+            <div class="carousel-item rounded">
+              <img src="assets/img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded" alt="Second slide" />
+              <a href="#" class="btn px-4 py-2 text-white rounded">Dưa chua</a>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hero End -->
+
+<!-- Fruits Shop Start-->
+<div class="container-fluid fruite py-5">
+  <div class="container py-5">
+    <div class="tab-class text-center">
+      <div class="row g-4">
+        <div class="col-lg-4 text-start">
+          <h1>Sản phẩm</h1>
+        </div>
+        <div class="col-lg-8 text-end">
+          <ul class="nav nav-pills d-inline-flex text-center mb-5">
+            <li class="nav-item" *ngFor="let cat of categories.slice(0,5)">
+              <a class="d-flex m-2 py-2 bg-light rounded-pill" [class.active]="cat.id == currentCategoryId"
+                (click)="onCategorySelect(cat.id)">
+                <span class="text-dark" style="width: 130px">{{cat.name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane fade show p-0 active">
+          <div class="row g-4">
+           
+            <div class="col-lg-12">
+              <div class="row g-4" *ngIf="filteredProducts.length > 0">
+                <!-- product card -->
+                <div class="col-md-6 col-lg-4 col-xl-3 product-item" *ngFor="let pro of filteredProducts">
+                  <div class="rounded position-relative fruite-item border border-secondary border-top-0">
+                    <div class="fruite-img">
+                      <a [routerLink]="['/detail/',pro.id]" routerLinkActive="router-link-active">
+                        <img src="http://localhost:3000/images/{{pro.img}}"
+                          class="img-fluid w-100 rounded-top product-img" alt="" />
+                      </a>
+
+                    </div>
+                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                      style="top: 10px; left: 10px">
+                      {{pro.category_name}}
+                    </div>
+                    <div class="p-4 rounded-bottom">
+                      <h4 class="product-name">{{pro.name}}</h4>
+                      <p>{{pro.description}}</p>
+                      <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0 product-price">{{pro.price | vndCurrency}}</p>
+                        <a (click)="addToCart(pro)" class="btn border border-secondary rounded-pill px-3 text-primary">
+                          <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end product card -->
+              </div>
+              <div *ngIf="filteredProducts.length == 0" class="row g-4">
+                <div class="col-12 text-center">
+                  <h2 class="text-primary">Đã hết sản phẩm thuộc danh mục này!</h2>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fruits Shop End-->
+
+<!-- Featurs Start -->
+<div class="container-fluid service py-5">
+  <div class="container py-5">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <a href="#">
+          <div class="service-item bg-secondary rounded border border-secondary">
+            <img src="assets/img/featur-1.jpg" class="img-fluid rounded-top w-100" alt="" />
+            <div class="px-4 rounded-bottom">
+              <div class="service-content bg-primary text-center p-4 rounded">
+                <h5 class="text-white">Sản phẩm từ kiệu</h5>
+                <h3 class="mb-0">Giảm 20%</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <a href="#">
+          <div class="service-item bg-dark rounded border border-dark">
+            <img src="assets/img/featur-2.jpg" class="img-fluid rounded-top w-100" alt="" />
+            <div class="px-4 rounded-bottom">
+              <div class="service-content bg-light text-center p-4 rounded">
+                <h5 class="text-primary">Giao hàng nội tỉnh</h5>
+                <h3 class="mb-0">Miễn phí</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <a href="#">
+          <div class="service-item bg-primary rounded border border-primary">
+            <img src="assets/img/featur-3.jpg" class="img-fluid rounded-top w-100" alt="" />
+            <div class="px-4 rounded-bottom">
+              <div class="service-content bg-secondary text-center p-4 rounded">
+                <h5 class="text-white">Nguyên liệu tươi rói</h5>
+                <h3 class="mb-0">Mỗi ngày</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Featurs End -->
+
+<!-- Banner Section Start-->
+<div class=" container-fluid banner bg-secondary my-5">
+  <div class="container py-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <div class="py-4">
+          <h1 class="display-3 text-white">Củ kiệu diệu kỳ</h1>
+          <p class="fw-normal display-3 text-dark mb-4">"Y zì" đón Tết</p>
+          <p class="mb-4 text-dark">
+            Hãy mua ngay ít củ kiệu chua để tặng người thân bạn bè ngay dịp Tết 2024!
+          </p>
+          <a href="/shop" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">Mua
+            ngay</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="position-relative">
+          <img src="assets/img/baner-1.png" class="img-fluid w-100 rounded" alt="" />
+          <!-- <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute"
+            style="width: 140px; height: 140px; top: 0; left: 0">
+            <h1 style="font-size: 100px">1</h1>
+            <div class="d-flex flex-column">
+              <span class="h2 mb-0">50$</span>
+              <span class="h4 text-muted mb-0">kg</span>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Banner Section End -->
+
+<!-- Bestsaler Product Start -->
+<div class="container-fluid py-5">
+  <div class="container py-5">
+    <div class="text-center mx-auto mb-5" style="max-width: 700px">
+      <h1 class="display-4">Sản phẩm bán chạy</h1>
+      <p>Những sản phẩm tốt nhất được nhiều khách hàng tin tưởng và lựa chọn!</p>
+    </div>
+    <div class="row g-4">
+      <div class="row" id="load-bsl0">
+        <div *ngFor="let pro of bestSellerProductsSquare" class="col-md-6 col-lg-6 col-xl-3 product-item">
+          <div class="text-center">
+            <img [routerLink]="['/detail/',pro.id]" routerLinkActive="router-link-active" src="assets/img/{{pro.img}}"
+              class="img-fluid rounded product-img" alt="" />
+            <div class="py-4">
+              <a href="#" class="h5 product-name">{{pro.name}}</a>
+              <div class="d-flex my-3 justify-content-center">
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <h4 class="mb-3 product-price">{{pro.price | vndCurrency}}</h4>
+              <a class="btn border border-secondary rounded-pill px-3 text-primary">
+                <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4" id="load-bsl">
+        <div *ngFor="let pro of bestSellerProductsCircle" class="col-lg-6 col-xl-4 product-item">
+          <div class="p-4 rounded bg-light">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <img [routerLink]="['/detail/',pro.id]" routerLinkActive="router-link-active"
+                  src="assets/img/{{pro.img}}" class="img-fluid rounded-circle w-100 product-img" alt="" />
+              </div>
+              <div class="col-6">
+                <a href="#" class="h5 product-name">{{pro.name}}</a>
+                <div class="d-flex my-3">
+                  <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <h4 class="mb-3 product-price">{{pro.price | vndCurrency}}</h4>
+                <a class="btn border border-secondary rounded-pill px-3 text-primary">
+                  <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Bestsaler Product End -->

@@ -1,0 +1,143 @@
+<!-- Modal Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex align-items-center">
+        <div class="input-group w-75 mx-auto d-flex">
+          <input type="search" id="search-input" #searchInput class="form-control p-3" placeholder="keywords"
+            aria-describedby="search-icon-1">
+          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"
+              (click)="searchProducts(searchInput.value)"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Search End -->
+
+
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+  <h1 class="text-center text-white display-6">Shop</h1>
+  <ol class="breadcrumb justify-content-center mb-0">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+    <li class="breadcrumb-item active text-white">Shop</li>
+  </ol>
+</div>
+<!-- Single Page Header End -->
+
+
+<!-- Fruits Shop Start-->
+<div class="container-fluid fruite py-5">
+  <div class="container">
+
+    <div class="row g-4">
+      <div class="col-lg-12">
+        <div class="row g-4">
+          <h1 class="mb-4 col-xl-3">Sản phẩm</h1>
+          <div class="col-xl-9">
+            <div class="input-group w-100 mx-auto d-flex">
+              <!-- Input tìm kiếm với sự kiện input -->
+              <input type="search" #searchInput class="form-control p-3" placeholder="Tìm kiếm gì đó..."
+                aria-describedby="search-icon-1">
+              <span id="search-icon-1" class="input-group-text p-3" (click)="searchProducts(searchInput.value)">
+                <i class="fa fa-search"></i>
+              </span>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-3">
+            <div class="row g-4">
+              <div class="col-lg-12 py-5">
+                <div class="mb-3">
+                  <h4>Danh mục</h4>
+                  <ul class="list-unstyled fruite-categorie" id="load-cate-filter">
+                    <li *ngFor="let cat of categories">
+                      <div class="d-flex justify-content-between fruite-name">
+                        <a (click)="filterProByCat(cat.id)"><i class="fas fa-apple-alt me-2"></i>{{cat.name}}</a>
+                        <span>(5)</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="mb-3">
+                  <h4 class="mb-2">Giá</h4>
+
+                  <ul class="list-unstyled fruite-categorie" id="load-cate-filter-by-price">
+                    <li *ngFor="let time of timePriceFilter">
+                      <div class="d-flex justify-content-between fruite-name">
+                        <a (click)="filterProByPrice(time.minPrice, time.maxPrice)">
+                          <i class="fas fa-apple-alt me-2"></i>
+                          <span *ngIf="time.maxPrice < 5000000">{{time.minPrice}} - {{time.maxPrice}}</span>
+                          <span *ngIf="time.maxPrice >= 5000000">Từ {{time.minPrice}} trở lên</span>
+                        </a>
+                        <span>VNĐ</span>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+
+              </div>
+              <div class="col-lg-12">
+                <div class="position-relative">
+                  <img src="assets/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                  <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                    <h3 class="text-secondary fw-bold"></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <div class="row g-4 justify-content-center">
+              <div class="row g-4" id="load-shop">
+                <div class="col-md-6 col-lg-6 col-xl-4" *ngFor="let product of filteredProducts">
+                  <div class="border border-secondary border-top-0 rounded position-relative fruite-item product-item">
+                    <div class="fruite-img">
+                      <img [routerLink]="['/detail/',product.id]" routerLinkActive="router-link-active"
+                        src="assets/img/{{product.img}}" class="product-img img-fluid w-100 rounded-top" alt="">
+                    </div>
+                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute name"
+                      style="top: 10px; left: 10px;">{{product.category_name}}</div>
+                    <div class="p-4   rounded-bottom">
+                      <h4 class="product-name">{{product.name}}</h4>
+                      <p>{{product.description}}</p>
+                      <div class="d-flex justify-content-between flex-lg-wrap row">
+                        <p class="col-12 text-dark fs-5 fw-bold mb-0 product-price">{{product.price | vndCurrency}}</p>
+                        <a class="col-7 btn border border-secondary rounded-pill text-primary"
+                          (click)="addToCart(product)">
+                          <i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm vào giỏ</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="pagination d-flex justify-content-center mt-5" id="pagination">
+                  <a class="rounded page-button atPage{{currentPage}}" *ngFor="let page of totalPages"
+                    (click)="loadShopProducts(page)">{{page}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fruits Shop End-->

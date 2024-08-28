@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="form-container">
+    
+    <form method="POST" (ngSubmit)="onForgotPass()" [formGroup]="userForm">
+      <h1>Quên mật khẩu</h1>
+      <input type="email" name="forgot_email" placeholder="Email" formControlName="email"
+        aria-describedby="emailHelpId">
+      <small *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" id="emailHelpId"
+        class="text-danger">
+        Vui lòng điền đúng định dạng email (abc123@gmail.com)
+      </small>
+      <button type="submit">Lấy lại mật khẩu</button>
+    </form>
+  </div>
+</div>

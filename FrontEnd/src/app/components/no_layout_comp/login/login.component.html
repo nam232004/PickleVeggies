@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<div class="container" id="container">
+  <div class="form-container sign-up">
+    <form [formGroup]="onRegisterForm" (ngSubmit)="onRegister()" #registerForm="ngForm">
+      <h1>Tạo tài khoản</h1>
+      <div class="social-icons">
+        <a href="#" class="icon"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon"><i class="fab fa-github"></i></a>
+        <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span>hoặc đăng ký bằng Gmail</span>
+      <input type="text" name="name" placeholder="Tên đăng nhập" formControlName="name" aria-describedby="nameHelpId">
+      <small *ngIf="onRegisterForm.get('name')?.invalid && onRegisterForm.get('name')?.touched" id="nameHelpId"
+        class="text-danger">
+        Không được để trống, tên từ 6 - 13 ký tự!
+      </small>
+      <input type="email" name="email" placeholder="Email" formControlName="email" aria-describedby="emailHelpId">
+      <small *ngIf="onRegisterForm.get('email')?.hasError('emailExists')" id="emailHelpId" class="text-danger">
+        Email đã tồn tại
+      </small>
+      <small
+        *ngIf="onRegisterForm.get('email')?.invalid && onRegisterForm.get('email')?.touched && !onRegisterForm.get('email')?.hasError('emailExists')"
+        id="emailHelpId" class="text-danger">
+        Vui lòng điền đúng định dạng email (abc123@gmail.com)
+      </small>
+      <input type="password" name="password" placeholder="Mật khẩu" formControlName="password"
+        aria-describedby="passwordHelpId">
+      <small *ngIf="onRegisterForm.get('password')?.invalid && onRegisterForm.get('password')?.touched"
+        id="passwordHelpId" class="text-danger">
+        Có ít nhất 6 ký tự và một chữ số
+      </small>
+      <input type="password" name="repass" placeholder="Nhập lại mật khẩu" formControlName="repass"
+        aria-describedby="repassHelpId">
+      <small *ngIf=" onRegisterForm.get('repass')?.touched && onRegisterForm.hasError('mismatch')" id="repassHelpId"
+        class="text-danger">
+        Vui lòng nhập trùng với mật khẩu vừa nhập!
+      </small>
+      <button type="submit">Đăng ký</button>
+    </form>
+  </div>
+  <div class="form-container sign-in">
+    <form [formGroup]="onLoginForm" (ngSubmit)="onLogin()">
+      <h1>Đăng nhập</h1>
+      <div class="social-icons">
+        <a href="#" class="icon"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon"><i class="fab fa-github"></i></a>
+        <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span>hoặc sử dụng tài khoản gmail</span>
+      <input type="email" name="email" placeholder="Email" formControlName="email" aria-describedby="emailHelpId">
+      <small *ngIf="onLoginForm.get('email')?.invalid && onLoginForm.get('email')?.touched" id="emailHelpId"
+        class="text-danger">
+        Vui lòng điền đúng định dạng email (abc123@gmail.com)
+      </small>
+      <input type="password" name="password" placeholder="Mật khẩu" formControlName="password"
+        aria-describedby="passwordHelpId">
+      <small *ngIf="onLoginForm.get('password')?.invalid && onLoginForm.get('password')?.touched" id="passwordHelpId"
+        class="text-danger">
+        Có ít nhất 6 ký tự và một chữ số
+      </small>
+      <small *ngIf="onLoginForm.hasError('invalidCredentials')" class="text-danger">
+        Email hoặc mật khẩu không chính xác
+      </small>
+      <a [routerLink]="['/account/forgotPass']" routerLinkActive="router-link-active">Quên mật khẩu?</a>
+      <button type="submit">Đăng nhập</button>
+    </form>
+
+  </div>
+  <div class="toggle-container">
+    <div class="toggle">
+      <div class="toggle-panel toggle-left">
+        <h1 class="color-white">Đã có<br>tài khoản?</h1>
+        <p>Đăng nhập để có trải nghiệm tốt hơn</p>
+        <button id="login">Đăng nhập</button>
+      </div>
+      <div class="toggle-panel toggle-right">
+        <h1 class="color-white">Chưa có<br>tài khoản?</h1>
+        <p>Đăng ký để đăng nhập chớ không có mô tả gì ở đây</p>
+        <button id="register">Đăng ký</button>
+      </div>
+    </div>
+  </div>
+</div>

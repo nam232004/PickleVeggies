@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="form-container">
+    <form [formGroup]="changePassForm" (ngSubmit)="onChangePass()">
+      <h2>Đổi Mật Khẩu</h2>
+      <div>
+        <label for="newPassword">Nhập mật khẩu mới</label>
+        <input id="newPassword" formControlName="newPassword" type="password">
+        <div
+          *ngIf="changePassForm.controls['newPassword'].invalid && (changePassForm.controls['newPassword'].dirty || changePassForm.controls['newPassword'].touched)">
+          <div *ngIf="changePassForm.controls['newPassword'].errors?.['required']">Mật khẩu mới là bắt buộc</div>
+          <div *ngIf="changePassForm.controls['newPassword'].errors?.['minlength']">Mật khẩu mới phải ít nhất 6 ký tự và
+            1 chữ số</div>
+        </div>
+      </div>
+      <div>
+        <label for="confirmPassword">Xác nhận mật khẩu</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password">
+        <div
+          *ngIf="changePassForm.controls['confirmPassword'].invalid && (changePassForm.controls['confirmPassword'].dirty || changePassForm.controls['confirmPassword'].touched)">
+          <div *ngIf="changePassForm.controls['confirmPassword'].errors?.['required']">Xác nhận mật khẩu là bắt buộc
+          </div>
+          <div *ngIf="changePassForm.controls['confirmPassword'].errors?.['minlength']">Xác nhận mật khẩu phải ít nhất 6
+            ký tự và 1 chữ số</div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="changePassForm.invalid">Đổi mật khẩu</button>
+    </form>
+  </div>
+</div>
