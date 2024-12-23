@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(private user: UsersService) {
     this.isLogin = this.user.checkLogin();
     this.isAdmin = this.user.checkAdmin();
-    console.log(this.isAdmin);
+    this.quantityCart = this.quantityCart();
   }
 
   ngOnInit() {
@@ -21,5 +21,9 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     localStorage.clear();
     location.assign('/');
+  }
+  quantityCart(){
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    return cart.length;
   }
 }
