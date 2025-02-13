@@ -484,7 +484,7 @@ router.post('/forgotPass', async function (req, res, next) {
 //     console.error(error.message);
 //     res.status(500).send('Server Error');
 //   }
-// });
+// });`
 
 router.post('/changePass/:token', async (req, res) => {
   const resetToken = req.params.token;
@@ -541,7 +541,7 @@ router.put('/users/:id', upload.single('img'), async (req, res, next) => {
     })
   }
 });
-//delete pro
+//delete user
 router.delete('/users/:id', async (req, res, next) => {
   let id = req.params.id;
   let db = await connectDb();

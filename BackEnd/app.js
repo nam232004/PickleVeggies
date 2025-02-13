@@ -7,6 +7,10 @@ var cors = require('cors');
 var dotenv = require('dotenv');
 
 var apiRouter = require('./routes/api');
+var apiProducts = require('./routes/product');
+var apiUsers = require('./routes/user');
+var apiCategories = require('./routes/category');
+var apiBills = require('./routes/bill');
 
 var app = express();
 
@@ -23,7 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', apiRouter);
+// app.use('/api', apiRouter);
+app.use('/api/products', apiProducts)
+app.use('/api/users', apiUsers)
+app.use('/api/categories', apiCategories)
+app.use('/api/bill', apiBills)
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
